@@ -157,6 +157,7 @@ if __name__=="__main__":
          visitees=[[False for i in range(4)] for j in range(4)]
          visitees[i][j]=True
          construireChemins(plateau,i,j,plateau[i][j],visitees)
+    # Afficher les solutions     
     print("Nombre de solutions ",len(solutions))
     print("Score ",score)
     s=list(solutions)
