@@ -10,9 +10,18 @@ solutions=set()
 
 t=[0]
 k=[0]
+score=[0]
+val=[0,0,0,1,1,2,3,5,11,11,11,11,11,11,11]
+def valeur(chaine):
+    """    retourne le nombre de points de cette chaine
+    """
+    p=len(chaine)
+    return val[p]
+    
 
 # Construire tous les chemins partant d'une case
 def construireChemins(plateau,i,j,chaine,casesVisitees):
+   
     """
     plateau : le tableau 4x4 qui représente la partie
     i,j : coordonnées de la case de départ
@@ -22,6 +31,7 @@ def construireChemins(plateau,i,j,chaine,casesVisitees):
    
     
     if estPresent(chaine,arbre) and len(chaine)>2:
+        score[0]+=valeur(chaine)
         solutions.add(chaine)
     # Calculer les coordonnées de toutes les cases accessibles autour de i,j
     candidats=[]
@@ -91,6 +101,7 @@ def construireChemins(plateau,i,j,chaine,casesVisitees):
         #print(casesVisitees)
         #print(chaine)
         #tousLesMots.add(chaine)
+       
         return chaine
     else : # le else est inutile mais c'est pour voir ce qu'on fait
         for c in newListe :
@@ -116,21 +127,37 @@ def construireChemins(plateau,i,j,chaine,casesVisitees):
 if __name__=="__main__":
     # Ici, arbre, l'arbre lexical est connu
     # et aussi on peut construire une grille de Boogle
+    highScore=0
+    nbSoluces=0
+    meilleurPlateau=None
+    for i in range(1):
+     plateaugenere="DRLAEEALSRPNTIAC"   
+     #plateaugenere=genereBoggle()
+     solutions=set()
+     imprime(plateaugenere)
+     plateau=transforme(plateaugenere)
+     score[0]=0
     
-    plateau=genereBoggle()
-    # plateau="BIPNOTIAANTIZLEL"
-    imprime(plateau)
-    plateau=transforme(plateau)
-    for i in range(4):
+     for i in range(4):
+        print(i)
         for j in range(4):
-         print(i,j)   
+          
          visitees=[[False for i in range(4)] for j in range(4)]
          visitees[i][j]=True
          construireChemins(plateau,i,j,plateau[i][j],visitees)
-    print(len(solutions))
+     print("Nombre de solutions ",len(solutions))
+     print("Score ",score[0])
+     if score[0]>highScore:
+        highScore=score[0]
+        meilleurPlateau=plateaugenere
+        nbSoluces=len(solutions)
+     print("best so far "+str(highScore)+" "+str(nbSoluces))
+     imprime(meilleurPlateau)
+     print()
+    """
     s=list(solutions)
     s.sort()
     for mot in s:
         print(mot)
-
+    """
    
