@@ -6,12 +6,11 @@
 from construireArbre import *
 from generation import *
 from sys import *
+from random import random
 
-tousLesMots=set()
+
 solutions=set()
 
-t=[0]
-k=[0]
 score=0
 val=[0,0,0,1,1,2,3,5,11,11,11,11,11,11,11]
 def valeur(chaine):
@@ -22,8 +21,12 @@ def valeur(chaine):
     
 
 # Construire tous les chemins partant d'une case
-def construireChemins(plateau,i,j,chaine,casesVisitees):
-    global score
+# desutilises memorise la position des dés qui composent le mot
+def construireChemins(plateau,i,j,chaine,casesVisitees,desUtilises):
+    global score,passage
+    descourants=list(desUtilises)
+    descourants.append((i,j))
+   
     """
     plateau : le tableau 4x4 qui représente la partie
     i,j : coordonnées de la case de départ
@@ -33,8 +36,15 @@ def construireChemins(plateau,i,j,chaine,casesVisitees):
    
     
     if estPresent(chaine,arbre) and len(chaine)>2:
-        score+=valeur(chaine)
+        
+       
+        if not chaine in solutions :
+         score+=valeur(chaine)   
+         for des in descourants:
+            nbVisites[des[0]][des[1]]+=1
         solutions.add(chaine)
+       
+       
     # Calculer les coordonnées de toutes les cases accessibles autour de i,j
     candidats=[]
    
@@ -109,12 +119,8 @@ def construireChemins(plateau,i,j,chaine,casesVisitees):
         for c in newListe :
             visite=list(casesVisitees)
             visite[c[0]][c[1]]=True
-
-            #print(c)
-            #print(str(t[0])+"\t"+chaine+plateau[c[0]][c[1]]+"*")
-            t[0]+=1
-            
-            construireChemins(plateau,c[0],c[1],chaine+plateau[c[0]][c[1]],visite)
+           
+            construireChemins(plateau,c[0],c[1],chaine+plateau[c[0]][c[1]],visite,descourants)
             visite[c[0]][c[1]]=False
     return
         
@@ -133,35 +139,86 @@ if __name__=="__main__":
     nbSoluces=0
     meilleurPlateau=None
     
-    for i in range(100):
-     plateaugenere,positiondesDes=genereBoggle()
+   
+    k=genereBoggle()
+    plateaugenere,positiondesDes=k
+    smartImprime(k)
+    print("Position des dés ",positiondesDes)
     
-     print(positiondesDes)
+    
+   
+    while(True) :
      solutions=set()
      imprime(plateaugenere)
      plateau=transforme(plateaugenere)
      score=0
-    
+     nbVisites=[[0 for i in range(4)] for j in range(4)]
      for i in range(4):
-        print(i)
-        for j in range(4):
-          
-         visitees=[[False for i in range(4)] for j in range(4)]
-         visitees[i][j]=True
-         construireChemins(plateau,i,j,plateau[i][j],visitees)
+      print(i)
+      for j in range(4):
+      
+       visitees=[[False for i in range(4)] for j in range(4)]
+       visitees[i][j]=True
+       construireChemins(plateau,i,j,plateau[i][j],visitees,[])
      print("Nombre de solutions ",len(solutions))
-     print("Score ",score)
-     if score>highScore:
-        highScore=score
-        meilleurPlateau=plateaugenere
-        nbSoluces=len(solutions)
-     print("best so far "+str(highScore)+" "+str(nbSoluces))
-     imprime(meilleurPlateau)
-     print()
-    """
-    s=list(solutions)
-    s.sort()
-    for mot in s:
-        print(mot)
-    """
+     print("\t\tScore ",score)
+     print(nbVisites)
+     # verification : la somme des valeurs de nbVisites doit etre égale aux nombre de caractères
+     # total des solutions
+     print("Visites ", sum([sum(c) for c in nbVisites]))
+     print("Taille des solutions ",sum([len(c) for c in solutions]))
+
+     # Trouver la position sur le plateau qui a été la moins visitée
+     mini=nbVisites[0][0]
+     indices=(0,0)
+     for i in range(4):
+        for j in range(4):
+            if nbVisites[i][j]<mini:
+                mini=nbVisites[i][j]
+                indices=(i,j)
+     ind=4*indices[0]+indices[1]
+     numeroDe=positiondesDes[ind]
+     print("Minimum en case ("+str(indices[0])+","+str(indices[1])+"):"+str(mini))
+     print("C'est le dé "+str(numeroDe)+" "+ valeurs[numeroDe])
+     lettre=plateaugenere[ind]
+     print(lettre)
+     newLetter=choice(valeurs[numeroDe])
+     # On tourne la face du dé le moins visité
+     while newLetter==lettre:
+         newLetter=choice(valeurs[numeroDe])
+     plateaugenere=plateaugenere[:ind]+newLetter+plateaugenere[ind+1:]
+     print("Nouveau plateau : "+plateaugenere)
+
+     # De temps en temps, on secoue un dé au hasard
+     if random()<0.2:
+         print("Allotage de dé")
+         # le numéro du dé à secouer sur le plateau
+         indice=randint(0,16)
+         print("Indice "+str(indice))
+         numeroDe=positiondesDes[indice]
+         print(numeroDe)
+         lettre=plateaugenere[ind]
+         print(lettre)
+         newLetter=choice(valeurs[numeroDe])
+         # On tourne la face du dé le moins visité
+         while newLetter==lettre:
+          newLetter=choice(valeurs[numeroDe])
+         plateaugenere=plateaugenere[:ind]+newLetter+plateaugenere[ind+1:]
+         print("Nouveau plateau : "+plateaugenere)
+        
+         
+         
+         
+                                                
+         
+         
+        
+
+
+
+
+
+
+    
+
    

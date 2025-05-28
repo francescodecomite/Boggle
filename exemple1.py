@@ -37,8 +37,9 @@ def construireChemins(plateau,i,j,chaine,casesVisitees):
     # On a trouvé un mot,on ajoute ses points au score, et on
     # ajoute le mot à l'ensemble des solutions
     if estPresent(chaine,arbre) and len(chaine)>2:
-        score+=valeur(chaine)
-        solutions.add(chaine)
+        if not chaine in solutions:
+         score+=valeur(chaine)
+         solutions.add(chaine)
     # et on continue..
     # Calculer les coordonnées de toutes les cases accessibles autour de i,j
     candidats=[]
@@ -140,8 +141,8 @@ if __name__=="__main__":
     # Il suffit de décommenter une des deux lignes suivantes.
     #Dans le cas de la génération aléatoire, il faut prendre uniquement la
     #première composante du couple engendrer par genereBoggle() (dans generation)
-    #plateaugenere="DRLAEEALSRPNTIAC"   
-    plateaugenere=genereBoggle()[0]
+    plateaugenere="DRLAEEALSRPNTIAC"   
+    #plateaugenere=genereBoggle()[0]
     # L'ensemble qui contiendra toutes les solutions
     solutions=set()
     imprime(plateaugenere)
@@ -162,6 +163,8 @@ if __name__=="__main__":
     print("Score ",score)
     s=list(solutions)
     s.sort()
+    """
     for mot in s :
         print(mot)
+    """    
    
