@@ -20,7 +20,7 @@ autres dés.
 - **union.py** : Le programme principal, un peu brouillon. J'ajouterai des fichiers d'exemples d'utilisation plus simples au fur et à mesure. 
 - **exemple1.py** : Un programme basique qui crée ou utilise une grille, et calcule les solutions. Vous pouvez comparer ses résultats avec les grilles générées [ici](https://www.boggle.fr/index.php) : 
 décommentez la ligne 143 et recopiez le plateau généré sur le site. Boggle.fr trouve environ 10% de mots en plus, vous pouvez les rajouter à **francaispurge.txt**
-- **exploration1.py** : On relance $n$ fois la génération de grille, et on conserve la meilleure grille
+- **exploration1.py** : On relance $n$ fois la génération de grille, et on conserve la meilleure grille.
 
 ## Utilisation
 ### Créer une grille, chercher tous les mots, afficher le score et les solutions

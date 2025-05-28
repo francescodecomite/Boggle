@@ -1,5 +1,6 @@
-# Un exemple de recherche de meilleure grille
-# Algo débile : relancer $N$ fois le programme, garder la meilleure solution
+# On génère une grille, on affiche la position des dés.
+# Les numéros des dés sont leur index dans la liste *valeurs* dans le
+# fichier 
 
 
 from construireArbre import *
@@ -133,7 +134,9 @@ if __name__=="__main__":
     meilleurPlateau=None
     
     for i in range(100):
-     plateaugenere=genereBoggle()[0]
+     plateaugenere,positiondesDes=genereBoggle()
+    
+     print(positiondesDes)
      solutions=set()
      imprime(plateaugenere)
      plateau=transforme(plateaugenere)

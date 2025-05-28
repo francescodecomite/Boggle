@@ -39,8 +39,18 @@ def imprime(chaine):
         print(chaine[4*i]+" "+chaine[4*i+1]+" "+chaine[4*i+2]+" "+chaine[4*i+3]+" ")
         #print(chaine[4*i:4*i+4])
 
+# Affiche le plateau et la position des dés
+def smartImprime(genere) :
+    chaine=genere[0]
+    des=genere[1]
+    for i in range(4):
+        s=chaine[4*i]+" "+chaine[4*i+1]+" "+chaine[4*i+2]+" "+chaine[4*i+3]+"\t\t"
+        s+=str(des[4*i])+"\t"+str(des[4*i+1])+"\t"+str(des[4*i+2])+"\t"+str(des[4*i+3])
+        print(s)
+
 if __name__=="__main__":
     (k,l)=(genereBoggle())
+    smartImprime((k,l))
     print(k)
     imprime(k)
     print(transforme(k))
