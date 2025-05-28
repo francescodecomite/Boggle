@@ -18,7 +18,9 @@ autres dés.
 - **motfrancais.txt** : Le dictionnaire de 300000 mots, qui donne **francaispurge.txt** une fois nettoyé des caractères spéciaux. 
 - **README.md** : ce fichier
 - **union.py** : Le programme principal, un peu brouillon. J'ajouterai des fichiers d'exemples d'utilisation plus simples au fur et à mesure. 
-- **exemple1.py** : Un programme basique qui crée ou utilise une grille, et calcule les solutions. Vous pouvez comparer ses résultats avec les grilles générées [ici](https://www.boggle.fr/index.php)
+- **exemple1.py** : Un programme basique qui crée ou utilise une grille, et calcule les solutions. Vous pouvez comparer ses résultats avec les grilles générées [ici](https://www.boggle.fr/index.php) : 
+décommentez la ligne 143 et recopiez le plateau généré sur le site. Boggle.fr trouve environ 10% de mots en plus, vous pouvez les rajouter à **francaispurge.txt**
 
 ## Utilisation
 ### Créer une grille, chercher tous les mots, afficher le score et les solutions
+Testez le programme **exemple1.py**
