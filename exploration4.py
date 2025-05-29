@@ -3,7 +3,7 @@
 # fichier 
 
 """
-Deuxième algorithme : repérer les $k$ dés qui sont le moins visités, et les retourner au hasard.
+Troisième algo : echanger la place des dés le moins visité et le plus visité
 
 """
 
@@ -180,8 +180,11 @@ if __name__=="__main__":
      kk=sorted(range(len(s)), key=lambda k: s[k])
      print(kk)
      # kk contient les indices des positions des dés classés selon la fréquence d'usage croissante
-     # Le nombre de dés à petits résutlats à retourner
-     nbretourne=5
+     tmp=positiondesDes[kk[15]]
+     positiondesDes[kk[15]]=positiondesDes[kk[0]]
+     positiondesDes[kk[15]]=tmp
+
+     # A continuer...
      for ind in range(nbretourne): 
       numeroDe=positiondesDes[kk[ind]]
       i1=kk[ind]//4
