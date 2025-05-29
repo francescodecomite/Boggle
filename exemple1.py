@@ -141,7 +141,8 @@ if __name__=="__main__":
     # Il suffit de décommenter une des deux lignes suivantes.
     #Dans le cas de la génération aléatoire, il faut prendre uniquement la
     #première composante du couple engendrer par genereBoggle() (dans generation)
-    plateaugenere="DRLAEEALSRPNTIAC"   
+    #plateaugenere="DRLAEEALSRPNTIAC"
+    plateaugenere="GRFLAEIASNRIZTEG"
     #plateaugenere=genereBoggle()[0]
     # L'ensemble qui contiendra toutes les solutions
     solutions=set()

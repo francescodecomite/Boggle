@@ -3,7 +3,7 @@
 # fichier 
 
 """
-Premier algorithme : repérer le dé qui est le moins visité, et le retourner au hasard.
+Deuxième algorithme : repérer les trois dés qui sont le moins visités, et les retourner au hasard.
 ça ne marche pas
 """
 
@@ -173,26 +173,33 @@ if __name__=="__main__":
      print("Visites ", sum([sum(c) for c in nbVisites]))
      print("Taille des solutions ",sum([len(c) for c in solutions]))
 
-     # Trouver la position sur le plateau qui a été la moins visitée
-     mini=nbVisites[0][0]
-     indices=(0,0)
-     for i in range(4):
-        for j in range(4):
-            if nbVisites[i][j]<mini:
-                mini=nbVisites[i][j]
-                indices=(i,j)
-     ind=4*indices[0]+indices[1]
-     numeroDe=positiondesDes[ind]
-     print("Minimum en case ("+str(indices[0])+","+str(indices[1])+"):"+str(mini))
-     print("C'est le dé "+str(numeroDe)+" "+ valeurs[numeroDe])
-     lettre=plateaugenere[ind]
-     print(lettre)
-     newLetter=choice(valeurs[numeroDe])
-     # On tourne la face du dé le moins visité
-     while newLetter==lettre:
+     # Classer les dés selon leur fréquence de visite
+     flatty=[item for row in nbVisites for item in row]
+     print(flatty)
+     s=flatty
+     kk=sorted(range(len(s)), key=lambda k: s[k])
+     print(kk)
+     # kk contient les indices des positions des dés classés selon la fréquence d'usage croissante
+     # Le nombre de dés à petits résutlats à retourner
+     nbretourne=5
+     for ind in range(nbretourne): 
+      numeroDe=positiondesDes[kk[ind]]
+      i1=kk[ind]//4
+      i2=kk[ind]%4
+      print(str(ind)+"ème minimum en case ("+str(i1)+","+str(i2)+"):"+str(nbVisites[i1][i2]))
+      print("C'est le dé "+str(numeroDe)+" "+ valeurs[numeroDe]+" lettre visible "+plateau[i1][i2])
+      newLetter=choice(valeurs[numeroDe])
+      while newLetter==plateau[i1][i2]:
          newLetter=choice(valeurs[numeroDe])
-     plateaugenere=plateaugenere[:ind]+newLetter+plateaugenere[ind+1:]
-     print("Nouveau plateau : "+plateaugenere)
+      plateaugenere=plateaugenere[:kk[ind]]+newLetter+plateaugenere[kk[ind]+1:]
+      print("Nouveau plateau : "+plateaugenere)
+      
+    
+
+
+
+
+     
 
      # De temps en temps, on secoue un dé au hasard
      if random()<seuil:
