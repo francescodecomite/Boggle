@@ -150,7 +150,7 @@ if __name__=="__main__":
     print("Position des dés ",positiondesDes)
     
     
-    seuil=0.8
+    seuil=0.0
     gamma=0.98
     while(True) :
      solutions=set()
@@ -180,24 +180,45 @@ if __name__=="__main__":
      kk=sorted(range(len(s)), key=lambda k: s[k])
      print(kk)
      # kk contient les indices des positions des dés classés selon la fréquence d'usage croissante
+     print(15*'*')
+     print("Position des dés")
+     print(positiondesDes)
+     print("Statistiques de visites")
+     print(nbVisites)
+     print("ordre du moins visité au plus visité")
+     print(kk)
+     print(kk[0])
+     print(kk[-1])
+     print(positiondesDes[kk[0]])
+     print(positiondesDes[kk[15]])
      tmp=positiondesDes[kk[15]]
      positiondesDes[kk[15]]=positiondesDes[kk[0]]
-     positiondesDes[kk[15]]=tmp
-
-     # A continuer...
-     for ind in range(nbretourne): 
-      numeroDe=positiondesDes[kk[ind]]
-      i1=kk[ind]//4
-      i2=kk[ind]%4
-      print(str(ind)+"ème minimum en case ("+str(i1)+","+str(i2)+"):"+str(nbVisites[i1][i2]))
-      print("C'est le dé "+str(numeroDe)+" "+ valeurs[numeroDe]+" lettre visible "+plateau[i1][i2])
-      newLetter=choice(valeurs[numeroDe])
-      while newLetter==plateau[i1][i2]:
-         newLetter=choice(valeurs[numeroDe])
-      plateaugenere=plateaugenere[:kk[ind]]+newLetter+plateaugenere[kk[ind]+1:]
-      print("Nouveau plateau : "+plateaugenere)
-      
+     positiondesDes[kk[0]]=tmp
+     print(positiondesDes)
+     numeroDeMini=positiondesDes[kk[15]]
+     newLetterMini=choice(valeurs[positiondesDes[kk[15]]])
+     numeroDeMaxi=positiondesDes[kk[0]]
+     newLetterMaxi=choice(valeurs[positiondesDes[kk[0]]])
+     # Modifler les lettres sur le plateau, pour les deux dés inversés
+     newChaine=""
+     for i in range(16):
+         if i!=numeroDeMini and i!=numeroDeMaxi:
+             newChaine+=plateaugenere[i]
+         else:
+             if i==numeroDeMini:
+                 newChaine+=newLetterMaxi
+             else :
+                 newChaine+=newLetterMini
+     print(newChaine)
+     #print(plateaugenere)
+     smartImprime((plateaugenere,positiondesDes))
+     plateaugenere=newChaine
+                 
+                          
     
+     
+     print(15*'*')
+         
 
 
 
