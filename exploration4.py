@@ -214,7 +214,7 @@ if __name__=="__main__":
      smartImprime((plateaugenere,positiondesDes))
      plateaugenere=newChaine
                  
-                          
+      # TODO : ça ne marche pas                    
     
      
      print(15*'*')
